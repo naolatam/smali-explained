@@ -33,6 +33,14 @@ In Smali, variables are stored in registers. Registers are temporary storage loc
 ### Defining and Naming Variables
 
 Smali doesn't have a specific keyword for defining variables. Variables are typically defined using registers, and you choose a register (`vX` or `pX`) to hold the value.
+to assign a value to a register, use `const`.
+To determine whether it's an int, a string or something else, we use other keywords. Here are a few examples: 
+- `const-string v0, “string here”`
+- `const-wide v0, 0x00000000L # for double (D)`
+- `const/4 v0, 0x7 #for int4`
+- `const/8 v0, 0x8 # for int8...`
+
+
 
 For example:
 ```smali
@@ -84,6 +92,17 @@ This instruction means:
 ## Conditional Statements
 
 Smali supports conditional statements similar to high-level languages like Java. The key conditional operations in Smali are the `if-*` instructions.
+In smali, a condition statement work like this : 
+```smali
+if-* v0, v1, :jump_destination
+goto :done
+:jump_destination
+return-void
+:done
+return v0
+```
+
+Where `if-*` design the comparison you want to do, `v0, v1` the two value you want to compare and `:jump_destination` the label containing the code you want to run if the condition is true
 
 ### If Statements
 
